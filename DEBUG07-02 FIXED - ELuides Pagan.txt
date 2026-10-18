@@ -1,0 +1,76 @@
+start
+   Declarations
+      string roomAName
+      num roomAValue
+      string roomBName
+      num roomBValue
+      string bothFilesDone = "N"
+      num LOW_VALUE = -1
+      InputFile roomAFile
+      InputFile roomBFile
+      OutputFile mergedFile
+
+   getReady()
+
+   while bothFilesDone = "N"
+      detailLoop()
+   endwhile
+
+   allDone()
+stop
+
+
+getReady()
+   open roomAFile "roomAFile.dat"
+   open roomBFile "roomBFile.dat"
+   open mergedFile "mergedFile.dat"
+
+   readA()
+   readB()
+   checkBoth()
+return
+
+
+readA()
+   input roomAName, roomAValue from roomAFile
+
+   if eof then
+      roomAValue = LOW_VALUE
+   endif
+return
+
+
+readB()
+   input roomBName, roomBValue from roomBFile
+
+   if eof then
+      roomBValue = LOW_VALUE
+   endif
+return
+
+
+checkBoth()
+   if roomAValue = LOW_VALUE AND roomBValue = LOW_VALUE then
+      bothFilesDone = "Y"
+   endif
+return
+
+
+detailLoop()
+   if roomAValue > roomBValue then
+      output roomAName, roomAValue to mergedFile
+      readA()
+   else
+      output roomBName, roomBValue to mergedFile
+      readB()
+   endif
+
+   checkBoth()
+return
+
+
+allDone()
+   close roomAFile
+   close roomBFile
+   close mergedFile
+return
